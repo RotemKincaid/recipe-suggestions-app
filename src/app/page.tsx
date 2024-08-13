@@ -15,12 +15,13 @@ import {
 } from "@/components/ui/card"
 
 import { generateRecipes } from "./actions"
-import { saveRecipeToDb } from "./helpers/dbHelper"
+import { saveRecipe, type Recipe } from "./helpers/dbHelper"
 
 export default function Home() {
   const [prompt, setPrompt] = useState<string>("")
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [recipes, setRecipes] = useState<any[]>([])
+  const [saved, setSaved] = useState<boolean>(false)
 
   async function onSubmit () {
     setIsLoading(true)
@@ -31,12 +32,15 @@ export default function Home() {
     setPrompt('')
   }
 
+  function onSaveRecipe (recipe: Recipe) {
+    saveRecipe(recipe)
+    setSaved(true)
+  }
+
   return (
     <main className="bg-gradient-to-r from-indigo-500 to-cyan-500 h-screen
    w-screen">
-      <header className="p-12">
-        <h1 className="text-4xl text-violet-50">Find Awesome Recipes</h1>
-      </header>
+  
       <div className="flex flex-col items-center">
         <div className="w-3/4">
           <div className="flex items-center content-center gap-2 mb-20">
@@ -68,7 +72,7 @@ export default function Home() {
                       ))}
                     </ol>
                   </div>
-                  <Button onClick={() => saveRecipeToDb(recipe)}>Save</Button>
+                  <Button onClick={() => saveRecipe(recipe)}>{saved ? 'Saved!' : 'Save'}</Button>
                 </CardContent>
               </Card>
             ))}

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^1.4.2",
     "@langchain/openai": "^0.2.6",
     "@libsql/client": "^0.8.1",
     "@radix-ui/react-slot": "^1.1.0",
